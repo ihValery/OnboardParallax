@@ -10,8 +10,18 @@ import SwiftUI
 //MARK: - HomeView
 
 struct HomeView: View {
+
+    //MARK: Properties
+    
+    @State private var number: Int = 1
+    
+    //MARK: Body
+
     var body: some View {
-        PictureView()
+        PictureView(numberStr: $number)
+            .overlay(alignment: .bottom) {
+                ControlPanel(number: $number)
+            }
             .ignoresSafeArea()
     }
 }
