@@ -25,17 +25,28 @@ struct PictureView: View {
 
             OneLayerView(nameLayer: "rocks_2", numberLayer: 3, numberStr: numberStr)
 
+            OneTextLayerView(text: "Onboarding", numberLayer: 1, numberStr: numberStr)
+                .position(x: geoProxy.size.width / 2, y: geoProxy.size.height * 2 / 3 + 20)
+
             OneLayerView(nameLayer: "rocks_1", numberLayer: 4, numberStr: numberStr)
+            
+            OneTextLayerView(text: "parallax", numberLayer: 2, numberStr: numberStr)
+                .position(x: geoProxy.size.width / 2 + 60, y: geoProxy.size.height * 2 / 3 + 85)
+                .offset(x: withAnimation(Animation.timingCurve(0.33, 1, 0.68, 1, duration: 1)) {
+                    numberStr == 2 ? 0 : 300
+                }
+                )
 
             OneLayerView(nameLayer: "clouds_1", numberLayer: 2, numberStr: numberStr)
 
             OneLayerView(nameLayer: "clouds_2", numberLayer: 3, numberStr: numberStr)
 
+            OneLayerView(nameLayer: "pines", numberLayer: 5, numberStr: numberStr)
+            
             OneLayerView(nameLayer: "birds", numberLayer: 4, numberStr: numberStr)
                 .offset(x: 80)
-            
-            OneLayerView(nameLayer: "pines", numberLayer: 5, numberStr: numberStr)
         }
+        .animation(.spring(), value: numberStr)
     }
 }
 
@@ -72,6 +83,38 @@ fileprivate struct OneLayerView: View {
     private func shiftByNumberLayer(number: Int) -> Int {
         switch number {
         case 1: return 1
+        case 2: return 10
+        case 3: return 30
+        case 4: return 150
+        case 5: return 210
+        default: return 1
+        }
+    }
+}
+
+//MARK: - OneLayerView
+
+fileprivate struct OneTextLayerView: View {
+    
+    //MARK: Properties
+    
+    let text: String
+    let numberLayer: Int
+    let numberStr: Int
+
+    //MARK: Body
+
+    var body: some View {
+        Text(text)
+            .foregroundColor(.white)
+            .font(.system(size: 70, weight: .regular, design: .serif))
+    }
+    
+    //MARK: Private Methods
+    
+    private func shiftByNumberLayer(number: Int) -> Int {
+        switch number {
+        case 1: return 20
         case 2: return 10
         case 3: return 30
         case 4: return 150
