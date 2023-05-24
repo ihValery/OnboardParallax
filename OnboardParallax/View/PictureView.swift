@@ -54,7 +54,7 @@ struct PictureView: View {
                 TextLayerView(text: "EFFECT", numberLayer: 2, numberStr: numberStr)
                     .position(x: geoProxy.size.width / 2 + 60, y: geoProxy.size.height * 2 / 3 + 110)
                     .offset(x: numberStr == 5 ? 0 : 143)
-                    .offset(x: numberStr < 4 ? 140 : 0)
+                    .offset(x: numberStr < 4 ? 135 : 0)
                     .opacity(numberStr < 4 ? 0 : 1)
             }
             
@@ -64,6 +64,8 @@ struct PictureView: View {
                 
                 OneLayerView(nameLayer: "birds", numberLayer: 4, numberStr: numberStr)
                     .offset(x: 80)
+                    .offset(x: numberStr == 5 ? 190 : 0, y: numberStr == 5 ? 10 : 0)
+                    .scaleEffect(numberStr == 4 ? 1.1 : 1)
                 
                 TextLayerView(text: "parallax", numberLayer: 2, numberStr: numberStr)
                     .position(x: geoProxy.size.width / 2 + 60, y: geoProxy.size.height * 2 / 3 + 85)
@@ -137,7 +139,8 @@ fileprivate struct TextLayerView: View {
     var body: some View {
         Text(text)
             .foregroundColor(.white)
-            .font(.system(size: 70, weight: .regular, design: .serif))
+            .font(.system(size: numberStr == 5 && text == "EFFECT" ? 90 : 70, weight: .regular, design: .serif))
+            .animation(Animation.interpolatingSpring(mass: 0.21, stiffness: 2.8, damping: 1.28, initialVelocity: 3.0), value: numberStr)
     }
     
     //MARK: Private Methods
